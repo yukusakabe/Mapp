@@ -1,3 +1,4 @@
+document.write('<script src="http://maps.google.com/maps/api/js?v=3&sensor=false" type="text/javascript" charset="UTF-8"></script>');
 document.write('<script type="text/javascript" src="./js/Agency.js"></script>');
 document.write('<script type="text/javascript" src="./js/DataReader.js"></script>');
 document.write('<script type="text/javascript" src="./js/Definition.js" charset="shift_jis"></script>');
