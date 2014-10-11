@@ -10,38 +10,32 @@
 			margin: 0px;
 			padding: 0px;
 		}
-		div#headerArea {
-			position: fixed;
-			position: absolute;
-			width: 100%;
-			height: 48px;
-			background-color: #FFFFFF;
-			color: #66757F;
-			text-align: center;
-		}
 		div#gmap {
-			top: 48px;
 			width: 100%;
-			height: -webkit-calc(100% - 48px);
+			height: 100%;
+		}
+		input#circleSize {
+			width: 160px;
 		}
 	</style>
 	
+	<script src="http://maps.google.com/maps/api/js?v=3&sensor=false" type="text/javascript" charset="UTF-8"></script>
 	<script src="./js/Mapp.js" type="text/javascript" charset="UTF-8"></script>
 	
 </head>
 <header>
-	<div id="headerArea">Mapp<br>
-	<select id="yearSelect" onChange="changeGraph()"></select>
-	<select id="transitSelect" onChange="changeGraph()">
-		<option value='0'>Total</option>
-		<option value='1'>Bus</option>
-		<option value='2'>Rail</option>
-	</select>
-	<input type="range" min="0" max="100" step="1" value="20" onchange="changeSize(this.value)">
-	</div>  
 </header>
 <body>
 	<div id="gmap"></div>
+	
+	<div id="graphController">
+		<select id="transitSelect" onChange="delerrok.mapp.changeTransitType(this.value)">
+			<option value='0'>Total</option>
+			<option value='1'>Bus</option>
+			<option value='2'>Rail</option>
+		</select>
+		<input id="circleSize" type="range" min="0" max="100" step="1" value="20" onchange="delerrok.mapp.changeCircleSize(this.value)">
+	</div>  
 </body>
 
 </html>
