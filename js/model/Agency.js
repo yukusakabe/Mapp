@@ -25,8 +25,8 @@ delerrok.mapp.Agency.prototype.getName = function() {
 	return this.name;
 };
 
-delerrok.mapp.Agency.prototype.getAddr = function() {
-	return this.addr;
+delerrok.mapp.Agency.prototype.getAbbr = function() {
+	return this.abbr;
 };
 
 delerrok.mapp.Agency.prototype.getCity = function() {

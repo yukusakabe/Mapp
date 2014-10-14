@@ -3,7 +3,8 @@
 */
 delerrok.mapp.AgencyData = function() {
 	this.agency = {};
-	this.agencyList = [];
+	this.region = {};
+	this.country = {};
 	
 	this.rankList = [];
 	this.agencyRank = {};
@@ -11,6 +12,30 @@ delerrok.mapp.AgencyData = function() {
 
 delerrok.mapp.AgencyData.prototype.getAgency = function(id) {
 	return this.agency[id];
+};
+
+delerrok.mapp.AgencyData.prototype.getId = function(id) {
+	return this.agency[id].getId();
+};
+
+delerrok.mapp.AgencyData.prototype.getName = function(id) {
+	return this.agency[id].getName();
+};
+
+delerrok.mapp.AgencyData.prototype.getAbbr = function(id) {
+	return this.agency[id].getAbbr();
+};
+
+delerrok.mapp.AgencyData.prototype.getCity = function(id) {
+	return this.agency[id].getCity();
+};
+
+delerrok.mapp.AgencyData.prototype.getState = function(id) {
+	return this.agency[id].getState();
+};
+
+delerrok.mapp.AgencyData.prototype.getCountry = function(id) {
+	return this.agency[id].getCountry();
 };
 
 delerrok.mapp.AgencyData.prototype.getLatitude = function(id) {
@@ -24,7 +49,6 @@ delerrok.mapp.AgencyData.prototype.getLongitude = function(id) {
 
 delerrok.mapp.AgencyData.prototype.setAgency = function(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership) {
 	this.agency[id] = new delerrok.mapp.Agency(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership);
-	this.agencyList.push(id);
 };
 
 delerrok.mapp.AgencyData.prototype.initRank = function() {
@@ -55,6 +79,6 @@ delerrok.mapp.AgencyData.prototype.getRidership = function(id, transitType) {
 	return this.agency[id].getRidership(transitType);
 };
 
-delerrok.mapp.AgencyData.prototype.getAgencyList = function(id) {
-	return this.agencyList;
+delerrok.mapp.AgencyData.prototype.getAgencyList = function() {
+	return this.agency;
 };

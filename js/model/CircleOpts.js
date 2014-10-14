@@ -14,8 +14,16 @@ delerrok.mapp.CircleOpts = function(center, fillColor, fillOpacity, map, radius,
 	this.zIndex = zIndex;
 }
 
+delerrok.mapp.CircleOpts.prototype.setCFillOpacity = function(fillOpacity) {
+	this.fillOpacity = fillOpacity;
+};
+
+delerrok.mapp.CircleOpts.prototype.setCStrokeOpacity = function(strokeOpacity) {
+	this.strokeOpacity = strokeOpacity;
+};
+
 delerrok.mapp.CircleOpts.prototype.setCCenter = function(latitude, longitude) {
-	this.center = new google.maps.LatLng(latitude, longitude);;
+	this.center = new google.maps.LatLng(latitude, longitude);
 };
 
 delerrok.mapp.CircleOpts.prototype.setCMap = function(map) {
@@ -24,6 +32,10 @@ delerrok.mapp.CircleOpts.prototype.setCMap = function(map) {
 
 delerrok.mapp.CircleOpts.prototype.setCRadius = function(radius) {
 	this.radius = radius;
+};
+
+delerrok.mapp.CircleOpts.prototype.getCRadius = function() {
+	return this.radius;
 };
 
 delerrok.mapp.CircleOpts.prototype.setCZIndex = function(zIndex) {

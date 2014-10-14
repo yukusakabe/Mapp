@@ -11,12 +11,95 @@
 			padding: 0px;
 		}
 		div#gmap {
+			float: left;
+			width: -webkit-calc(100% - 720px);
+			height: 100%;
+		}
+		div#sidebar {
+			overflow: auto;
+			width: 720px;
+			height: 100%;
+			margin: 0px;  
+			padding: 0px;
+			background-color: #CCCCCC;
+			color: #292F33;
+		}
+		div#sidebarHeader {
+			position: fixed;
+			width: 720px;
+			height: 40px;			
+			background-color: #F1F1F1; 
+		}
+		div#sidebarBody {
+			position: fixed;
+			top: 40px;
+			width: 720px;
+			overflow: auto;
+			height: -webkit-calc(100% - 40px);
+		}
+		table#agencyTable {
+			width: 720px;
+			height: 100%;
+			border-width: 0px;
+			table-layout: fixed;
+			border-collapse: collapse;
+			background-color: #FFFFFF;
+		}
+		tr#trHeader {
+			height: 42px;
+			border-bottom: #CCCCCC solid 2px;
+		}
+		tr.trBody {
+			height: 36px;
+			border-bottom: #CCCCCC solid 1px;
+		}
+		tr.trBody:hover {
+			background-color: #EBF4F8;
+		}
+		td.tdBodyL {
+			padding-left: 4px;
+			padding-right: 4px;
+			text-align: left;
+		}
+		td.tdBodyR {
+			padding-left: 4px;
+			padding-right: 4px;
+			text-align: right;
+		}
+		td.tdBodyC {
+			padding-left: 4px;
+			padding-right: 4px;
+			text-align: center;
+		}
+		div.tableElmDiv {
+			width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		div.divHeader {
 			width: 100%;
 			height: 100%;
 		}
-		input#circleSize {
-			width: 160px;
+		col#colName {
+			width: 320px;
 		}
+		col#colAbbr {
+			width: 80px;
+		}
+		col#colCity {
+			width: 120px;
+		}
+		col#colState {
+			width: 50px;
+		}
+		col#colCountry {
+			width: 50px;
+		}
+		col#colRidership {
+			width: 100%;
+		}
+		
 	</style>
 	
 	<script src="http://maps.google.com/maps/api/js?v=3&sensor=false" type="text/javascript" charset="UTF-8"></script>
@@ -28,14 +111,49 @@
 <body>
 	<div id="gmap"></div>
 	
-	<div id="graphController">
-		<select id="transitSelect" onChange="delerrok.mapp.changeTransitType(this.value)">
-			<option value='0'>Total</option>
-			<option value='1'>Bus</option>
-			<option value='2'>Rail</option>
-		</select>
-		<input id="circleSize" type="range" min="0" max="100" step="1" value="20" onchange="delerrok.mapp.changeCircleSize(this.value)">
-	</div>  
+	<div id="graphHeader">
+		<dive id="graphController">
+			<select id="typeSelect">
+				<option value='0'>All</option>
+				<option value='1'>Country</option>
+				<option value='2'>Region</option>
+			</select>
+			<select id="transitSelect" onChange="delerrok.mapp.changeTransitType(this.value)">
+				<option value='0'>Total</option>
+				<option value='1'>Bus</option>
+				<option value='2'>Rail</option>
+			</select>
+			<input id="circleSize" type="range" min="0" max="100" step="1" value="20" onchange="delerrok.mapp.changeCircleSize(this.value)">
+		</dev>
+	</div>
+	
+	<div id="sidebar">
+		<div id="sidebarHeader">
+		</div>
+		<div id="sidebarBody">
+			<table id="agencyTable">
+				<colgroup>
+					<col span="1" id="colName">
+					<col span="1" id="colAbbr">
+					<col span="1" id="colCity">
+					<col span="1" id="colState">
+					<col span="1" id="colCountry">
+					<col span="1" id="colRidership">
+				</colgroup>
+				<thead id="tableHeader">
+					<tr id="trHeader">
+						<th><div class="divHeader" id="nameTab" deta-SortKey="1" onclick="delerrok.mapp.changeTable(this.id)">Name</div></th>
+						<th><div class="divHeader" id="abbrTab" deta-SortKey="2" onclick="delerrok.mapp.changeTable(this.id)">Abbr</div></th>
+						<th><div class="divHeader" id="cityTab" deta-SortKey="3" onclick="delerrok.mapp.changeTable(this.id)">City</div></th>
+						<th><div class="divHeader" id="stateTab" deta-SortKey="4" onclick="delerrok.mapp.changeTable(this.id)">St</div></th>
+						<th><div class="divHeader" id="countryTab" deta-SortKey="5" onclick="delerrok.mapp.changeTable(this.id)">Cty</div></th>
+						<th><div class="divHeader" id="ridershipTab" deta-SortKey="6" onclick="delerrok.mapp.changeTable(this.id)">Ridership</div></th>
+					</tr>
+				</thead>
+				<tbody id="tableBody">
+				</tbody>
+			</table>
+		</div>
+	</div>
 </body>
-
 </html>
