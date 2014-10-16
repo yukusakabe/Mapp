@@ -15,6 +15,8 @@ delerrok.mapp.AgencyTable = function(agencyData, tbody) {
 
 delerrok.mapp.AgencyTable.prototype.init = function(mapType, transitType) {
 	var agencyList = this.agencyData.getAgencyList();
+	
+	this.tableData = [];
 
 	for (var k in agencyList) {
 		this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);

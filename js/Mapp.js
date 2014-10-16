@@ -1,6 +1,8 @@
 if (!this.delerrok) delerrok = {};
 if (!this.delerrok.mapp) delerrok.mapp = {};
 
+document.write('<script src="http://maps.google.com/maps/api/js?v=3&sensor=false" type="text/javascript" charset="UTF-8"></script>');
+
 document.write('<script type="text/javascript" src="./js/Definition.js" charset="shift_jis"></script>');
 
 document.write('<script type="text/javascript" src="./js/controller/AgencyTable.js"></script>');
@@ -17,7 +19,8 @@ document.write('<script type="text/javascript" src="./js/model/ListData.js"></sc
 var gmap = null;
 var agencyData = null;
 var circleOverlay = null;
-var infoWindow = null;
+var infoWindows = {};
+var nowWindow = null;
 var agencyTable = null;
 var scrollObj = null
 
@@ -51,7 +54,7 @@ window.onload = function() {
 	var agencyList = agencyData.getAgencyList();
 	
 	for (k in agencyList) {
-		delerrok.mapp.makeInfo(k, circleOverlay.getCircle(k), agencyData.getName(k));
+		delerrok.mapp.makeInfo(k, circleOverlay.getCircle(k), "<font size='5'>" + agencyData.getName(k) + "<br>" + agencyData.getAbbr(k) + "<br>" + agencyData.getCity(k) + "," + agencyData.getState(k) + "<br>" + agencyData.getCountry(k) + "<br>" + agencyData.getRidership(k, 0) + "</font>");
 	}
 	
 }
@@ -62,8 +65,12 @@ delerrok.mapp.makeInfo = function(id, circle, infoText) {
 	var infowindow = new google.maps.InfoWindow({
 		content: infoText, position: circle.getCenter(), disableAutoPan: true
 	});
+	
+	infoWindows[id] = infowindow;
+	
 	google.maps.event.addListener(circle, 'click', function(evt) {
 		infowindow.open(gmap);
+		nowWindow = infowindow;
 		delerrok.mapp.panTo(id);
 		circleOverlay.hideAllCircle();
 		circleOverlay.showCircle(id);
@@ -76,6 +83,10 @@ delerrok.mapp.makeInfo = function(id, circle, infoText) {
 };
 
 delerrok.mapp.changeTransitType = function(transitType) {
+	agencyTable.init(null, transitType);
+	agencyTable.sortTable(6, false);
+	agencyTable.deleteTable();
+	agencyTable.makeTable();
 	circleOverlay.changeTransitType(transitType);
 };
 
@@ -85,8 +96,12 @@ delerrok.mapp.changeCircleSize = function(size) {
 };
 
 delerrok.mapp.clickAgencyTable = function(id) {
+	if (nowWindow != null) {
+		nowWindow.close();
+	}
 	var agencyId = document.getElementById(id).getAttribute('data-AgencyId');
-	
+	infoWindows[id].open(gmap);
+	nowWindow = infoWindows[id];
 	delerrok.mapp.panTo(agencyId);
 	circleOverlay.hideAllCircle();
 	circleOverlay.showCircle(agencyId);
