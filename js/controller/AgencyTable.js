@@ -11,15 +11,34 @@ delerrok.mapp.AgencyTable = function(agencyData, tbody) {
 	this.nowSortKey = null;
 	this.nowOrder = true;
 	this.nowSelect = null;
+	this.onload = 1;
 }
 
-delerrok.mapp.AgencyTable.prototype.init = function(mapType, transitType) {
+delerrok.mapp.AgencyTable.prototype.init = function(mapType, transitType, str) {
 	var agencyList = this.agencyData.getAgencyList();
 	
 	this.tableData = [];
 
 	for (var k in agencyList) {
-		this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);
+		if (this.onload == 0) {
+			if (document.group.elements[this.agencyData.getGroup(k)].checked) {
+				if (str != null) {
+					if (this.agencyData.getName(k).toLowerCase().indexOf(str.toLowerCase()) != -1 || this.agencyData.getCity(k).toLowerCase().indexOf(str.toLowerCase()) != -1) {
+						this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);
+					}
+				} else {
+					this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);
+				}
+			}
+		} else {
+			if (str != null) {
+				if (this.agencyData.getName(k).toLowerCase().indexOf(str.toLowerCase()) != -1 || this.agencyData.getCity(k).toLowerCase().indexOf(str.toLowerCase()) != -1) {
+					this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);
+				}
+			} else {
+				this.tableData.push([this.agencyData.getId(k), this.agencyData.getName(k), this.agencyData.getAbbr(k), this.agencyData.getCity(k), this.agencyData.getState(k), this.agencyData.getCountry(k), this.agencyData.getRidership(k, transitType)]);
+			}
+		}
 	}
 };
 
@@ -97,7 +116,7 @@ delerrok.mapp.AgencyTable.prototype.createTrElement = function(data) {
 	trElm.appendChild(this.createTdElement(data[3], 3));
 	trElm.appendChild(this.createTdElement(data[4], 4));
 	trElm.appendChild(this.createTdElement(data[5], 5));
-	trElm.appendChild(this.createTdElement(data[6], 6));
+	trElm.appendChild(this.createTdElement(this.separate(data[6]), 6));
 	return trElm;	
 };
 
@@ -132,4 +151,8 @@ delerrok.mapp.AgencyTable.prototype.changeTable = function(sortKey) {
 	this.sortTable(Number(this.nowSortKey), this.nowOrder);
 	this.deleteTable();
 	this.createTable();
+}
+
+delerrok.mapp.AgencyTable.prototype.separate = function(num){
+    return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 }

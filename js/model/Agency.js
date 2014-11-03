@@ -2,7 +2,7 @@
 *Agency Class
 *
 */
-delerrok.mapp.Agency = function(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership) {
+delerrok.mapp.Agency = function(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership, rank, group) {
 	this.id = id;
 	this.name = name;
 	this.abbr = abbr;
@@ -13,6 +13,8 @@ delerrok.mapp.Agency = function(id, name, abbr, city, state, country, latitude, 
 	this.longitude = longitude;
 	this.year = year;
 	this.ridership = [];
+	this.rank = rank;
+	this.group = group;
 	
 	this.setRidership(totalRidership, busRidership, railRidership);
 }
@@ -51,6 +53,14 @@ delerrok.mapp.Agency.prototype.getLongitude = function() {
 
 delerrok.mapp.Agency.prototype.getYear = function() {
 	return this.year;
+};
+
+delerrok.mapp.Agency.prototype.getRank = function() {
+	return this.rank;
+};
+
+delerrok.mapp.Agency.prototype.getGroup = function() {
+	return this.group;
 };
 
 delerrok.mapp.Agency.prototype.setRidership = function(totalRidership, busRidership, railRidership) {

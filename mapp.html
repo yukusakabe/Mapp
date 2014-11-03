@@ -6,44 +6,67 @@
 			height: 100%;
 		}
 		body {
+			font-family: Helvetica, sans-serif;
+			font-size: 11px;
 			height: 100%;
 			margin: 0px;
 			padding: 0px;
 		}
+		div#divbody {
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+			display: table;
+		}
 		div#gmap {
-			float: left;
-			width: -webkit-calc(100% - 720px);
+			display: table-cell;
+			table-layout: fixed;
+			width: 100%;
 			height: 100%;
 		}
 		div#sidebar {
-			overflow: auto;
-			width: 720px;
+			display: table-cell;
+			width: 0px;
 			height: 100%;
-			margin: 0px;  
-			padding: 0px;
 			background-color: #CCCCCC;
 			color: #292F33;
 		}
-		div#sidebarHeader {
-			position: fixed;
-			width: 720px;
-			height: 40px;			
-			background-color: #F1F1F1; 
-		}
 		div#sidebarBody {
-			position: fixed;
-			top: 40px;
-			width: 720px;
+			width: 0px;
 			overflow: auto;
-			height: -webkit-calc(100% - 40px);
+			height: 100%
+		}
+		div#filterbox {
+			font-size: 13px;
+			background-color: #FFFFFF;
+			border-radius: 5px;
+			padding: 5px;
+			background-color: rgba(255, 255, 255, 0.7)
+		}
+		div#graphHeader {
+			background-color: #FFFFFF;
+			border-radius: 5px;
+			background-color: rgba(255, 255, 255, 0.7)
+		}
+		div#filterBody {
+			width: 0px;
+			overflow: auto;
+			height: 100%
+		}
+		button#showButton {
+			width: 30px;
+			height: 120px;
+		}
+		button#showFilter {
+			width: 30px;
+			height: 120px;
 		}
 		table#agencyTable {
-			width: 720px;
-			height: 100%;
+			width: 100%;
 			border-width: 0px;
-			table-layout: fixed;
 			border-collapse: collapse;
 			background-color: #FFFFFF;
+			table-layout: fixed;
 		}
 		tr#trHeader {
 			height: 42px;
@@ -78,19 +101,19 @@
 			text-overflow: ellipsis;
 		}
 		col#colName {
-			width: 320px;
+			width: 260px;
 		}
 		col#colAbbr {
-			width: 80px;
+			width: 60px;
 		}
 		col#colCity {
-			width: 120px;
+			width: 80px;
 		}
 		col#colState {
-			width: 50px;
+			width: 30px;
 		}
 		col#colCountry {
-			width: 50px;
+			width: 30px;
 		}
 		col#colRidership {
 			width: 100%;
@@ -98,52 +121,71 @@
 		input#circleSize {
 			width: 240px;
 		}
+		input#search {
+			font-size: 21px;
+			width: 300px;
+		}
 	</style>
 	
 	<script src="./js/Mapp.js" type="text/javascript" charset="UTF-8"></script>
 	
 </head>
 <header>
+		<div id="graphHeader">
+			<select id="transitSelect" onChange="delerrok.mapp.changeTransitType()">
+					<option value='0'>Total</option>
+					<option value='1'>Bus</option>
+					<option value='2'>Rail</option>
+			</select>
+			<input id="circleSize" type="range" min="0" max="100" step="1" value="20" onchange="delerrok.mapp.changeCircleSize(this.value)">
+		</div>
+		
+		<div id="showbar">
+			<button id="showButton" type="button" onclick="delerrok.mapp.showbar()">
+		</div>
+		
+		<div id="textbox">
+			<input type="search" id="search" onChange="delerrok.mapp.changeTransitType()">
+		</div>
+		
+		<div id="filterbox">
+			<form name="group">
+				<input type="checkbox" value="0" checked onchange="delerrok.mapp.changeGroup(this.value)">Top 20<br>
+				<input type="checkbox" value="1" checked onchange="delerrok.mapp.changeGroup(this.value)">Middle 100<br>
+				<input type="checkbox" value="2" checked onchange="delerrok.mapp.changeGroup(this.value)">Long Tail 1<br>
+				<input type="checkbox" value="3" checked onchange="delerrok.mapp.changeGroup(this.value)">Long Tail 2<br>
+				<input type="checkbox" value="4" checked onchange="delerrok.mapp.changeGroup(this.value)">Long Tail 3
+			</form>
+		</div>
 </header>
 <body>
-	<div id="gmap"></div>
-	
-	<div id="graphHeader">
-		<input id="circleSize" type="range" min="0" max="100" step="1" value="20" onchange="delerrok.mapp.changeCircleSize(this.value)">
-	</div>
-	
-	<div id="sidebar">
-		<div id="sidebarHeader">
-			<select id="transitSelect" onChange="delerrok.mapp.changeTransitType(this.value)">
-				<option value='0'>Total</option>
-				<option value='1'>Bus</option>
-				<option value='2'>Rail</option>
-			</select>
-			<input type="text">
-		</div>
-		<div id="sidebarBody">
-			<table id="agencyTable">
-				<colgroup>
-					<col span="1" id="colName">
-					<col span="1" id="colAbbr">
-					<col span="1" id="colCity">
-					<col span="1" id="colState">
-					<col span="1" id="colCountry">
-					<col span="1" id="colRidership">
-				</colgroup>
-				<thead id="tableHeader">
-					<tr id="trHeader">
-						<th id="nameTab" deta-SortKey="1" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Name</div></th>
-						<th id="abbrTab" deta-SortKey="2" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Abbr</div></th>
-						<th id="cityTab" deta-SortKey="3" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">City</div></th>
-						<th id="stateTab" deta-SortKey="4" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">St</div></th>
-						<th id="countryTab" deta-SortKey="5" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Cty</div></th>
-						<th id="ridershipTab" deta-SortKey="6" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Ridership</div></th>
-					</tr>
-				</thead>
-				<tbody id="tableBody">
-				</tbody>
-			</table>
+	<div id="divbody">
+		<div id="gmap"></div>	
+		<div id="sidebar">
+			<div id="sidebarBody">
+				<table id="agencyTable">
+					<colgroup>
+						<col span="1" id="colName">
+						<col span="1" id="colAbbr">
+						<col span="1" id="colCity">
+						<col span="1" id="colState">
+						<col span="1" id="colCountry">
+						<col span="1" id="colRidership">
+					</colgroup>
+					<thead id="tableHeader">
+						<tr id="trHeader">
+							<th id="nameTab" deta-SortKey="1" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Name</div></th>
+							<th id="abbrTab" deta-SortKey="2" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Abbr</div></th>
+							<th id="cityTab" deta-SortKey="3" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">City</div></th>
+							<th id="stateTab" deta-SortKey="4" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">St</div></th>
+							<th id="countryTab" deta-SortKey="5" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Cty</div></th>
+							<th id="ridershipTab" deta-SortKey="6" onclick="delerrok.mapp.changeTable(this.id)"><div class="divHeader">Ridership</div></th>
+						</tr>
+					</thead>
+					<tbody id="tableBody">
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

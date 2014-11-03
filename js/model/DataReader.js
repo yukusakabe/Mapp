@@ -20,7 +20,7 @@ delerrok.mapp.readAgencyData = function() {
 	var agencyData = new delerrok.mapp.AgencyData();
 	
 	for (var i = 0; i < cvs.length; i++) {
-		agencyData.setAgency(Number(cvs[i][0]), cvs[i][1], cvs[i][2], cvs[i][3], cvs[i][4], cvs[i][5], Number(cvs[i][10]), Number(cvs[i][11]), 2012, Number(cvs[i][9]), Number(cvs[i][6]), Number(cvs[i][7]));
+		agencyData.setAgency(Number(cvs[i][0]), cvs[i][1], cvs[i][2], cvs[i][3], cvs[i][4], cvs[i][5], Number(cvs[i][10]), Number(cvs[i][11]), 2012, Number(cvs[i][9]), Number(cvs[i][6]), Number(cvs[i][7]), Number(cvs[i][12]), Number(cvs[i][13]));
 	}
 	return agencyData;
 };

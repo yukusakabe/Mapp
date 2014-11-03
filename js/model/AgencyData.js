@@ -46,9 +46,16 @@ delerrok.mapp.AgencyData.prototype.getLongitude = function(id) {
 	return this.agency[id].getLongitude();
 };
 
+delerrok.mapp.AgencyData.prototype.getRank = function(id) {
+	return this.agency[id].getRank();
+};
 
-delerrok.mapp.AgencyData.prototype.setAgency = function(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership) {
-	this.agency[id] = new delerrok.mapp.Agency(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership);
+delerrok.mapp.AgencyData.prototype.getGroup = function(id) {
+	return this.agency[id].getGroup();
+};
+
+delerrok.mapp.AgencyData.prototype.setAgency = function(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership, rank, group) {
+	this.agency[id] = new delerrok.mapp.Agency(id, name, abbr, city, state, country, latitude, longitude, year, totalRidership, busRidership, railRidership, rank, group);
 };
 
 delerrok.mapp.AgencyData.prototype.initRank = function() {

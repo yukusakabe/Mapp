@@ -34,11 +34,7 @@ delerrok.mapp.CircleOverlay.prototype.initDefOptsTable = function() {
 	var agencyList = this.agencyData.getAgencyList();
 	
 	for (var k in agencyList) {
-		for (var i = 0; i < this.baseRule.length; i++) {
-			if(this.baseRule[i].applyRule(this.agencyData.getRidership(k, TransitType.TOTAL), this.agencyData.getAgencyRank(k))) {
-				this.defOptsTable[k] = this.baseRule[i].getOptsNo();
-			}
-		}
+			this.defOptsTable[k] = this.baseRule[this.agencyData.getGroup(k)].getOptsNo();
 	}
 };
 
@@ -69,9 +65,17 @@ delerrok.mapp.CircleOverlay.prototype.showCircle = function(id) {
 	this.circle[id].setVisible(true);
 };
 
-delerrok.mapp.CircleOverlay.prototype.showAllCircle = function() {
+delerrok.mapp.CircleOverlay.prototype.showAllCircle = function(str) {
 	for (var k in this.circle) {
-		this.circle[k].setVisible(true);
+		if (document.group.elements[this.agencyData.getGroup(k)].checked) {
+			if (str != null) {
+				if (this.agencyData.getName(k).toLowerCase().indexOf(str.toLowerCase()) != -1 || this.agencyData.getCity(k).toLowerCase().indexOf(str.toLowerCase()) != -1) {
+					this.circle[k].setVisible(true);
+				}
+			} else {
+				this.circle[k].setVisible(true);
+			}
+		}
 	}
 };
 
@@ -82,6 +86,22 @@ delerrok.mapp.CircleOverlay.prototype.hideCircle = function(id) {
 delerrok.mapp.CircleOverlay.prototype.hideAllCircle = function(id) {
 	for (var k in this.circle) {
 		this.circle[k].setVisible(false);
+	}
+};
+
+delerrok.mapp.CircleOverlay.prototype.showGroup= function(code) {
+	for (var k in this.circle) {
+		if (this.agencyData.getGroup(k) == code) {
+			this.circle[k].setVisible(true);
+		}
+	}
+};
+
+delerrok.mapp.CircleOverlay.prototype.hideGroup = function(code) {
+	for (var k in this.circle) {
+		if (this.agencyData.getGroup(k) == code) {
+			this.circle[k].setVisible(false);
+		}
 	}
 };
 
